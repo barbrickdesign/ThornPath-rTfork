@@ -5,7 +5,7 @@ This module provides functionality to decrypt TLS traffic using master secrets
 and cryptographic parameters extracted from TLS handshakes.
 """
 
-from typing import Optional
+from typing import Any
 from Cryptodome.Cipher import AES
 from Cryptodome.Hash import HMAC
 

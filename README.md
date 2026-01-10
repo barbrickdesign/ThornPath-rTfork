@@ -92,14 +92,14 @@ You can also use the MasterDecrypter class in your own Python scripts:
 
 ```python
 from Cryptodome.Cipher import AES
-from Cryptodome import Hash
+from Cryptodome.Hash import SHA384
 import MasterDecrypter
 
 # Initialize decrypter
 decrypter = MasterDecrypter.MasterDecrypter(
     cipher_size=256,
     cipher_mode=AES.MODE_GCM,
-    cipher_hash=Hash.SHA384,
+    cipher_hash=SHA384,
     master_secret=master_secret_bytes,
     server_random=server_random_bytes,
     client_random=client_random_bytes

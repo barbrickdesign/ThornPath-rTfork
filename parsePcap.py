@@ -16,7 +16,7 @@ Assumptions:
 import sys
 import argparse
 import logging
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Any
 
 
 # Configure logging
@@ -36,7 +36,7 @@ HANDSHAKE_SERVER_HELLO = b'\x02'
 DEFAULT_MASTER_SECRET = b'\xd2\x76\x4f\x01\x83\x60\xd6\xc1\x29\x3c\x56\x76\xe2\x06\xad\xe5\x8b\x31\xfc\x56\x77\xde\xef\x2a\xee\xda\xb0\xf7\x28\x7d\x87\xea\x43\xb5\xc6\xd9\x9c\xd8\xc9\x01\x39\xb0\x7a\xbe\x6a\xe4\x99\xbc'
 
 
-def cs_name_to_values(ciphersuite_name: str) -> Tuple[str, int, int, any]:
+def cs_name_to_values(ciphersuite_name: str) -> Tuple[str, int, int, Any]:
     """
     Parse cipher suite name to extract cryptographic parameters.
     
