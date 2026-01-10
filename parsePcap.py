@@ -17,10 +17,6 @@ import sys
 import argparse
 import logging
 from typing import List, Tuple, Optional
-import pyshark
-import MasterDecrypter
-from Cryptodome.Cipher import AES
-from Cryptodome import Hash
 
 
 # Configure logging
@@ -53,6 +49,10 @@ def cs_name_to_values(ciphersuite_name: str) -> Tuple[str, int, int, any]:
     Raises:
         ValueError: If cipher suite format is invalid or hash is unsupported
     """
+    # Import here to allow --help without dependencies
+    from Cryptodome.Cipher import AES
+    from Cryptodome.Hash import SHA384, SHA256, SHA1, SHA224, SHA512
+    
     try:
         symmetric_part = ciphersuite_name.split('WITH_')[1]
     except IndexError:
@@ -80,11 +80,11 @@ def cs_name_to_values(ciphersuite_name: str) -> Tuple[str, int, int, any]:
     hash_str = hash_raw.split()[0]
 
     hash_map = {
-        'SHA384': Hash.SHA384,
-        'SHA256': Hash.SHA256,
-        'SHA1': Hash.SHA1,
-        'SHA224': Hash.SHA224,
-        'SHA512': Hash.SHA512,
+        'SHA384': SHA384,
+        'SHA256': SHA256,
+        'SHA1': SHA1,
+        'SHA224': SHA224,
+        'SHA512': SHA512,
     }
     
     hash_algo = hash_map.get(hash_str)
@@ -157,6 +157,15 @@ def hex_to_bytes(hex_string: str) -> bytes:
 def main():
     """Main entry point for the script."""
     args = parse_args()
+    
+    # Import dependencies here to allow --help to work without them installed
+    try:
+        import pyshark
+        import MasterDecrypter
+    except ImportError as e:
+        logger.error(f"Missing required dependency: {e}")
+        logger.error("Please install dependencies: pip3 install -r requirements.txt")
+        sys.exit(1)
     
     # Set logging level
     if args.verbose:

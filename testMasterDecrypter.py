@@ -7,7 +7,7 @@ using the MasterDecrypter class.
 
 import unittest
 from Cryptodome.Cipher import AES
-from Cryptodome import Hash
+from Cryptodome.Hash import SHA384, SHA256, SHA1
 import MasterDecrypter
 
 
@@ -58,7 +58,7 @@ class TestMasterDecrypter(unittest.TestCase):
         self.tls_decrypter = MasterDecrypter.MasterDecrypter(
             256,
             AES.MODE_GCM,
-            Hash.SHA384,
+            SHA384,
             self.master_secret,
             self.server_random,
             self.client_random
@@ -78,7 +78,7 @@ class TestMasterDecrypter(unittest.TestCase):
             MasterDecrypter.MasterDecrypter(
                 256,
                 AES.MODE_GCM,
-                Hash.SHA384,
+                SHA384,
                 b'short',  # Too short
                 self.server_random,
                 self.client_random
@@ -90,7 +90,7 @@ class TestMasterDecrypter(unittest.TestCase):
             MasterDecrypter.MasterDecrypter(
                 256,
                 AES.MODE_GCM,
-                Hash.SHA384,
+                SHA384,
                 self.master_secret,
                 b'short',  # Too short
                 self.client_random
@@ -102,7 +102,7 @@ class TestMasterDecrypter(unittest.TestCase):
             MasterDecrypter.MasterDecrypter(
                 256,
                 AES.MODE_GCM,
-                Hash.SHA384,
+                SHA384,
                 self.master_secret,
                 self.server_random,
                 b'short'  # Too short
@@ -114,7 +114,7 @@ class TestMasterDecrypter(unittest.TestCase):
             MasterDecrypter.MasterDecrypter(
                 512,  # Invalid size
                 AES.MODE_GCM,
-                Hash.SHA384,
+                SHA384,
                 self.master_secret,
                 self.server_random,
                 self.client_random
